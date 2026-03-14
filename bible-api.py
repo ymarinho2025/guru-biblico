@@ -1,4 +1,5 @@
 import requests
+import os
 from books import books
 
 book = input("Digite o nome do livro: ").lower().replace(" ", "")
@@ -21,3 +22,12 @@ dados = resposta.json()
 
 print("Referência:", dados["reference"])
 print("Texto:", dados["text"])
+
+opcao = input("\nDeseja um estudo bíblico personalizado baseado nesse versículo? (s/n): ").lower().strip()
+
+if opcao == "s":
+    
+    os.environ["VERSE_REFERENCE"] = dados["reference"]
+    os.environ["VERSE_TEXT"] = dados["text"]
+
+    import llm
